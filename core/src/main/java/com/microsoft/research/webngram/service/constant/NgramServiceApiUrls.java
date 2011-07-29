@@ -19,11 +19,7 @@ package com.microsoft.research.webngram.service.constant;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -60,6 +56,8 @@ public final class NgramServiceApiUrls {
 			.getProperty("com.microsoft.research.webngram.service.getConditionalProbabilities");
 	public static final String GENERATE_URL = academicSearchApiUrls
 			.getProperty("com.microsoft.research.webngram.service.generate");
+	public static final String LOOKUP_URL = academicSearchApiUrls
+			.getProperty("com.microsoft.research.webngram.service.lookup");
 
 	/**
 	 * Instantiates a new academic search api urls.
@@ -67,137 +65,116 @@ public final class NgramServiceApiUrls {
 	private NgramServiceApiUrls() {
 	}
 
-	/**
-	 * The Class AcademicSearchApiUrlBuilder.
-	 */
-	public static class NgramServiceApiUrlBuilder {
+    /**
+     * The Class SpringerApiUrlBuilder.
+     */
+    public static class NgramServiceApiUrlBuilder {
+        
+        /** The Constant API_URLS_PLACEHOLDER_START. */
+        private static final char API_URLS_PLACEHOLDER_START = '{';
 
-		/** The Constant API_URLS_PLACEHOLDER_START. */
-		private static final char API_URLS_PLACEHOLDER_START = '{';
-
-		/** The Constant API_URLS_PLACEHOLDER_END. */
-		private static final char API_URLS_PLACEHOLDER_END = '}';
-
-		/** The Constant QUERY_PARAMETERS_PLACEHOLDER. */
-		private static final String QUERY_PARAMETERS_PLACEHOLDER = "queryParameters";
-
-		/** The url format. */
-		private String urlFormat;
-
-		/** The parameters map. */
-		private Map<String, Collection<String>> parametersMap = new HashMap<String, Collection<String>>();
-
+        /** The Constant API_URLS_PLACEHOLDER_END. */
+        private static final char API_URLS_PLACEHOLDER_END = '}';
+        
+    	/** The url format. */
+	    private String urlFormat;
+	    
+    	/** The parameters map. */
+	    private Map<String, String> parametersMap = new HashMap<String, String>();
+    	
+		/** The fields map. */
+		private Map<String, String> fieldsMap = new HashMap<String, String>();
+	    
+    	/**
+	     * Instantiates a new springer api url builder.
+	     * 
+	     * @param urlFormat the url format
+	     */
+	    public NgramServiceApiUrlBuilder(String urlFormat) {
+	    	this(urlFormat, ApplicationConstants.DEFAULT_API_VERSION, ApplicationConstants.DEFAULT_FORMAT);
+    	}
+    	
+    	/**
+	     * Instantiates a new springer api url builder.
+	     * 
+	     * @param urlFormat the url format
+	     * @param format the format
+	     */
+	    public NgramServiceApiUrlBuilder(String urlFormat, String format) {
+	    	this(urlFormat, ApplicationConstants.DEFAULT_API_VERSION, format);
+    	}
+	    
+    	/**
+	     * Instantiates a new springer api url builder.
+	     * 
+	     * @param urlFormat the url format
+	     * @param apiVersion the api version
+	     * @param format the format
+	     */
+	    public NgramServiceApiUrlBuilder(String urlFormat, String apiVersion, String format) {
+    		this.urlFormat = urlFormat;
+    		parametersMap.put(ParameterNames.FORMAT, format);
+    	}
+	    
+    	/**
+	     * With parameter.
+	     * 
+	     * @param name the name
+	     * @param value the value
+	     * 
+	     * @return the springer api url builder
+	     */
+	    public NgramServiceApiUrlBuilder withParameter(String name, String value) {
+	    	if (value != null && value.length() > 0) {
+	    		parametersMap.put(name, encodeUrl(value));
+	    	}
+    		
+    		return this;
+    	}
+    	
 		/**
-		 * Instantiates a new academic search api url builder.
+		 * With empty field.
 		 * 
-		 * @param urlFormat
-		 *            the url format
+		 * @param name the name
+		 * 
+		 * @return the springer api url builder
 		 */
-		public NgramServiceApiUrlBuilder(String urlFormat) {
-			this(urlFormat, ApplicationConstants.DEFAULT_API_VERSION);
-		}
-
-		/**
-		 * Instantiates a new academic search api url builder.
-		 * 
-		 * @param urlFormat
-		 *            the url format
-		 * @param apiVersion
-		 *            the api version
-		 */
-		public NgramServiceApiUrlBuilder(String urlFormat, String apiVersion) {
-			this.urlFormat = urlFormat;
-		}
-
-		/**
-		 * With parameter.
-		 * 
-		 * @param name
-		 *            the name
-		 * @param value
-		 *            the value
-		 * 
-		 * @return the academic search api url builder
-		 */
-		public NgramServiceApiUrlBuilder withParameter(String name,
-				String value) {
-			if (value != null && value.length() > 0) {
-				Collection<String> values = parametersMap.get(name);
-				if (values == null) {
-					values = new ArrayList<String>();
-					parametersMap.put(name, values);
-				}
-				values.add(encodeUrl(value));
-			}
+		public NgramServiceApiUrlBuilder withEmptyField(String name) {
+			fieldsMap.put(name, "");
 
 			return this;
 		}
 
 		/**
-		 * With parameter.
+		 * With field.
 		 * 
-		 * @param name
-		 *            the name
-		 * @param value
-		 *            the value
+		 * @param name the name
+		 * @param value the value
 		 * 
-		 * @return the academic search api url builder
+		 * @return the springer api url builder
 		 */
-		public NgramServiceApiUrlBuilder withParameter(String name, int value) {
-			Collection<String> values = parametersMap.get(name);
-			if (values == null) {
-				values = new ArrayList<String>();
-				parametersMap.put(name, values);
-			}
-			values.add(encodeUrl(String.valueOf(value)));
+		public NgramServiceApiUrlBuilder withField(String name, String value) {
+			withField(name, value, false);
 
 			return this;
 		}
 
 		/**
-		 * With parameter suffix.
+		 * With field.
 		 * 
-		 * @param name
-		 *            the name
-		 * @param suffix
-		 *            the suffix
+		 * @param name the name
+		 * @param value the value
+		 * @param escape the escape
 		 * 
-		 * @return the academic search api url builder
+		 * @return the springer api url builder
 		 */
-		public NgramServiceApiUrlBuilder withParameterSuffix(String name,
-				String suffix) {
-			if (suffix != null && suffix.length() > 0) {
-				Collection<String> values = parametersMap.get(name);
-				if (values != null) {
-					List<String> updatedValues = new ArrayList<String>(values
-							.size());
-					for (String value : values) {
-						updatedValues.add(encodeUrl(suffix) + value);
-					}
-					parametersMap.put(name, updatedValues);
-				}
+		public NgramServiceApiUrlBuilder withField(String name, String value,
+				boolean escape) {
+			if (escape) {
+				fieldsMap.put(name, encodeUrl(value));
+			} else {
+				fieldsMap.put(name, value);
 			}
-
-			return this;
-		}
-
-		/**
-		 * With parameters.
-		 * 
-		 * @param name
-		 *            the name
-		 * @param values
-		 *            the values
-		 * 
-		 * @return the academic search api url builder
-		 */
-		public NgramServiceApiUrlBuilder withParameters(String name,
-				Collection<String> values) {
-			List<String> encodedValues = new ArrayList<String>(values.size());
-			for (String value : values) {
-				encodedValues.add(encodeUrl(value));
-			}
-			parametersMap.put(name, encodedValues);
 
 			return this;
 		}
@@ -211,6 +188,7 @@ public final class NgramServiceApiUrls {
 			StringBuilder urlBuilder = new StringBuilder();
 			StringBuilder placeHolderBuilder = new StringBuilder();
 			boolean placeHolderFlag = false;
+			boolean firstParameter = true;
 			for (int i = 0; i < urlFormat.length(); i++) {
 				if (urlFormat.charAt(i) == API_URLS_PLACEHOLDER_START) {
 					placeHolderBuilder = new StringBuilder();
@@ -218,37 +196,25 @@ public final class NgramServiceApiUrls {
 				} else if (placeHolderFlag
 						&& urlFormat.charAt(i) == API_URLS_PLACEHOLDER_END) {
 					String placeHolder = placeHolderBuilder.toString();
-					if (QUERY_PARAMETERS_PLACEHOLDER.equals(placeHolder)) {
+					if (fieldsMap.containsKey(placeHolder)) {
+						urlBuilder.append(fieldsMap.get(placeHolder));
+					} else if (parametersMap.containsKey(placeHolder)) {
 						StringBuilder builder = new StringBuilder();
-						if (!parametersMap.isEmpty()) {
-							Iterator<String> iter = parametersMap.keySet()
-									.iterator();
-							while (iter.hasNext()) {
-								String name = iter.next();
-								Collection<String> parameterValues = parametersMap
-										.get(name);
-								Iterator<String> iterParam = parameterValues
-										.iterator();
-								while (iterParam.hasNext()) {
-									builder.append(name);
-									builder.append("=");
-									builder.append(iterParam.next());
-									if (iterParam.hasNext()) {
-										builder.append("&");
-									}
-								}
-								if (iter.hasNext()) {
-									builder.append("&");
-								}
-							}
+						if (firstParameter) {
+							firstParameter = false;
+						} else {
+							builder.append("&");
 						}
+						builder.append(placeHolder);
+						builder.append("=");
+						builder.append(parametersMap.get(placeHolder));
 						urlBuilder.append(builder.toString());
 					} else {
 						// we did not find a binding for the placeholder.
-						// append it as it is.
-						urlBuilder.append(API_URLS_PLACEHOLDER_START);
-						urlBuilder.append(placeHolder);
-						urlBuilder.append(API_URLS_PLACEHOLDER_END);
+						// skip it.
+						// urlBuilder.append(API_URLS_PLACEHOLDER_START);
+						// urlBuilder.append(placeHolder);
+						// urlBuilder.append(API_URLS_PLACEHOLDER_END);
 					}
 					placeHolderFlag = false;
 				} else if (placeHolderFlag) {
@@ -260,23 +226,21 @@ public final class NgramServiceApiUrls {
 
 			return urlBuilder.toString();
 		}
-
-		/**
-		 * Encode url.
-		 * 
-		 * @param original
-		 *            the original
-		 * 
-		 * @return the string
-		 */
-		private static String encodeUrl(String original) {
-			try {
-				return URLEncoder.encode(original,
-						ApplicationConstants.CONTENT_ENCODING);
-			} catch (UnsupportedEncodingException e) {
-				// should never be here..
-				return original;
-			}
-		}
-	}
+    	
+        /**
+         * Encode url.
+         * 
+         * @param original the original
+         * 
+         * @return the string
+         */
+        private static String encodeUrl(String original) {
+        	try {
+    			return URLEncoder.encode(original, ApplicationConstants.CONTENT_ENCODING);
+    		} catch (UnsupportedEncodingException e) {
+    			// should never be here..
+    			return original;
+    		}
+        }
+    }
 }

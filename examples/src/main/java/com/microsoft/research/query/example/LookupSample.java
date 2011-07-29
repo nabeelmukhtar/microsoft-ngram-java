@@ -75,7 +75,11 @@ public class LookupSample {
     		LookupService service = factory.newLookupService();
     		List<String> models = service.getModels();
     		System.out.println(models);
-    		List<Double> probabilities = service.getConditionalProbabilities(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", Arrays.asList("post example"));
+    		Double probability = service.getProbability(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", "post example");
+    		System.out.println(probability);
+    		probability = service.getConditionalProbability(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", "post example");
+    		System.out.println(probability);
+    		List<Double> probabilities = service.getConditionalProbabilities(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", Arrays.asList("post example", "one two three"));
     		System.out.println(probabilities);
         } else {
         	printHelp(options);

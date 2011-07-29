@@ -52,6 +52,8 @@ public final class ApplicationConstants {
 
 	/** The Constant DEFAULT_API_VERSION. */
 	public static final String DEFAULT_API_VERSION = getProperty("com.microsoft.research.webngram.service.defaultApiVersion");
+	
+	public static final String DEFAULT_FORMAT = getProperty("com.microsoft.research.webngram.service.defaultFormat");	
 
 	/** The Constant DATE_FORMAT. */
 	public static final Pattern DATE_FORMAT = getPatternProperty("com.microsoft.research.webngram.service.dateFormat");
