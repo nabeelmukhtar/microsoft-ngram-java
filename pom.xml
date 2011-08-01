@@ -5,14 +5,14 @@
     <artifactId>oss-parent</artifactId>
     <version>7</version>
   </parent>  
-  <groupId>com.googlecode.academic-search-java-sdk</groupId>
-  <artifactId>academic-search-java-sdk</artifactId>
+  <groupId>com.googlecode.microsoft-ngram-java</groupId>
+  <artifactId>microsoft-ngram-java</artifactId>
   <packaging>pom</packaging>
   <version>1.0</version>
-  <name>Microsoft Academic Search API Java SDK</name>
+  <name>Microsoft Web N-Gram API Java SDK</name>
   <inceptionYear>2010</inceptionYear>
-  <description>A Java wrapper for Microsoft Academic Search API.</description>
-  <url>http://code.google.com/p/academic-search-java-sdk/</url>
+  <description>A Java wrapper for Microsoft Web N-Gram Service.</description>
+  <url>http://code.google.com/p/microsoft-ngram-java/</url>
   <licenses>
     <license>
       <name>The Apache Software License, Version 2.0</name>
@@ -23,13 +23,13 @@
 
   <issueManagement>
     <system>google-code</system>
-    <url>http://code.google.com/p/academic-search-java-sdk/issues/list</url>
+    <url>http://code.google.com/p/microsoft-ngram-java/issues/list</url>
   </issueManagement>
 
   <scm>
-    <connection>scm:svn:http://academic-search-java-sdk.googlecode.com/svn/trunk</connection>
-    <developerConnection>scm:svn:https://academic-search-java-sdk.googlecode.com/svn/trunk</developerConnection>
-    <url>http://academic-search-java-sdk.googlecode.com/svn/trunk/</url>
+    <connection>scm:svn:http://microsoft-ngram-java.googlecode.com/svn/trunk</connection>
+    <developerConnection>scm:svn:https://microsoft-ngram-java.googlecode.com/svn/trunk</developerConnection>
+    <url>http://microsoft-ngram-java.googlecode.com/svn/trunk/</url>
   </scm>
 
   <developers>

@@ -38,7 +38,7 @@ import com.microsoft.research.webngram.service.constant.ApplicationConstants;
 import com.microsoft.research.webngram.service.exception.NgramServiceException;
 
 /**
- * The Class AcademicSearchApiGateway.
+ * The Class NgramServiceApiGateway.
  */
 public abstract class NgramServiceApiGateway {
 

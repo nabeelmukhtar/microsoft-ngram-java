@@ -20,7 +20,7 @@ import com.microsoft.research.webngram.service.impl.GenerationServiceImpl;
 import com.microsoft.research.webngram.service.impl.LookupServiceImpl;
 
 /**
- * A factory for creating AcademicSearchQuery objects.
+ * A factory for creating NgramService objects.
  */
 public class NgramServiceFactory {
 
@@ -28,7 +28,7 @@ public class NgramServiceFactory {
 	private String applicationKey;
 
 	/**
-	 * Instantiates a new academic search query factory.
+	 * Instantiates a new ngram service factory.
 	 * 
 	 * @param applicationKey the application key
 	 */
@@ -41,21 +41,26 @@ public class NgramServiceFactory {
 	 * 
 	 * @param applicationKey the application key
 	 * 
-	 * @return the academic search query factory
+	 * @return the ngram service factory
 	 */
 	public static NgramServiceFactory newInstance(String applicationKey) {
 		return new NgramServiceFactory(applicationKey);
 	}
 
 	/**
-	 * New publication search query.
+	 * New lookup service.
 	 * 
-	 * @return the publication search query
+	 * @return the lookup service
 	 */
 	public LookupService newLookupService() {
 		return new LookupServiceImpl(applicationKey);
 	}
 	
+	/**
+	 * New generation service.
+	 * 
+	 * @return the generation service
+	 */
 	public GenerationService newGenerationService() {
 		return new GenerationServiceImpl(applicationKey);
 	}

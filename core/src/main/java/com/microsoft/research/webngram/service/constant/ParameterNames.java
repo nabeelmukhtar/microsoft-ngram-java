@@ -20,10 +20,22 @@ package com.microsoft.research.webngram.service.constant;
  * The Interface ParameterNames.
  */
 public interface ParameterNames {
+	
+	/** The Constant MODEL_URL. */
 	public static final String MODEL_URL = "modelUrn";
+	
+	/** The Constant USER_TOKEN. */
 	public static final String USER_TOKEN = "u";
+	
+	/** The Constant PHRASE. */
 	public static final String PHRASE = "p";
+	
+	/** The Constant FORMAT. */
 	public static final String FORMAT = "format";
+	
+	/** The Constant MAX_TOKENS. */
 	public static final String MAX_TOKENS = "n";
+	
+	/** The Constant COOKIE. */
 	public static final String COOKIE = "cookie";
 }

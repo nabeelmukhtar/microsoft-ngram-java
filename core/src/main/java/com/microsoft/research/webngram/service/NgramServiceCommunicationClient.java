@@ -19,7 +19,7 @@ package com.microsoft.research.webngram.service;
 import java.util.Map;
 
 /**
- * The Interface AcademicSearchCommunicationClient.
+ * The Interface NgramServiceCommunicationClient.
  */
 public interface NgramServiceCommunicationClient {
 

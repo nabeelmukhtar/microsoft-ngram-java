@@ -17,7 +17,7 @@
 package com.microsoft.research.webngram.service.exception;
 
 /**
- * The Class AcademicSearchException.
+ * The Class NgramServiceException.
  */
 public class NgramServiceException extends RuntimeException {
 
@@ -28,13 +28,13 @@ public class NgramServiceException extends RuntimeException {
 	private int resultCode;
 
 	/**
-	 * Instantiates a new academic search exception.
+	 * Instantiates a new ngram service exception.
 	 */
 	public NgramServiceException() {
 	}
 
 	/**
-	 * Instantiates a new academic search exception.
+	 * Instantiates a new ngram service exception.
 	 * 
 	 * @param message the message
 	 */
@@ -43,7 +43,7 @@ public class NgramServiceException extends RuntimeException {
 	}
 
 	/**
-	 * Instantiates a new academic search exception.
+	 * Instantiates a new ngram service exception.
 	 * 
 	 * @param message the message
 	 * @param resultCode the result code
@@ -54,7 +54,7 @@ public class NgramServiceException extends RuntimeException {
 	}
 	
 	/**
-	 * Instantiates a new academic search exception.
+	 * Instantiates a new ngram service exception.
 	 * 
 	 * @param cause the cause
 	 */
@@ -63,7 +63,7 @@ public class NgramServiceException extends RuntimeException {
 	}
 
 	/**
-	 * Instantiates a new academic search exception.
+	 * Instantiates a new ngram service exception.
 	 * 
 	 * @param message the message
 	 * @param cause the cause

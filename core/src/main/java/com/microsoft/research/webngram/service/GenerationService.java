@@ -1,69 +1,110 @@
+/*
+ * Copyright 2011 Nabeel Mukhtar 
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at 
+ * 
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and
+ * limitations under the License. 
+ * 
+ */
 package com.microsoft.research.webngram.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Interface GenerationService.
+ */
 public interface GenerationService extends NgramServiceCommunicationClient {
 	
+	/**
+	 * Gets the models.
+	 * 
+	 * @return the models
+	 */
 	public List<String> getModels();
+	
+	/**
+	 * Generate.
+	 * 
+	 * @param authorizationToken the authorization token
+	 * @param modelUrn the model urn
+	 * @param phraseContext the phrase context
+	 * @param maxN the max n
+	 * @param cookie the cookie
+	 * 
+	 * @return the token set
+	 */
 	public TokenSet generate(String authorizationToken, String modelUrn, String phraseContext, Integer maxN, String cookie);
 
+	/**
+	 * The Class TokenSet.
+	 */
 	public static class TokenSet implements Serializable {
 
+		/** The Constant serialVersionUID. */
 		private final static long serialVersionUID = 2461660169443089969L;
+		
+		/** The backoff. */
 		protected Double backoff;
+		
+		/** The cookie. */
 		protected String cookie;
+		
+		/** The probabilities. */
 		protected List<Double> probabilities;
+		
+		/** The words. */
 		protected List<String> words;
 
 		/**
-		 * Gets the value of the backoff property.
+		 * Gets the backoff.
 		 * 
-		 * @return possible object is {@link Float }
-		 * 
+		 * @return the backoff
 		 */
 		public Double getBackoff() {
 			return backoff;
 		}
 
 		/**
-		 * Sets the value of the backoff property.
+		 * Sets the backoff.
 		 * 
-		 * @param value
-		 *            allowed object is {@link Float }
-		 * 
+		 * @param value the new backoff
 		 */
 		public void setBackoff(Double value) {
 			this.backoff = value;
 		}
 
 		/**
-		 * Gets the value of the cookie property.
+		 * Gets the cookie.
 		 * 
-		 * @return possible object is {@link String }
-		 * 
+		 * @return the cookie
 		 */
 		public String getCookie() {
 			return cookie;
 		}
 
 		/**
-		 * Sets the value of the cookie property.
+		 * Sets the cookie.
 		 * 
-		 * @param value
-		 *            allowed object is {@link String }
-		 * 
+		 * @param value the new cookie
 		 */
 		public void setCookie(String value) {
 			this.cookie = value;
 		}
 
 		/**
-		 * Gets the value of the probabilities property.
+		 * Gets the probabilities.
 		 * 
-		 * @return possible object is {@link ArrayOffloat }
-		 * 
+		 * @return the probabilities
 		 */
 		public List<Double> getProbabilities() {
 			if (probabilities == null) {
@@ -73,21 +114,18 @@ public interface GenerationService extends NgramServiceCommunicationClient {
 		}
 
 		/**
-		 * Sets the value of the probabilities property.
+		 * Sets the probabilities.
 		 * 
-		 * @param value
-		 *            allowed object is {@link ArrayOffloat }
-		 * 
+		 * @param value the new probabilities
 		 */
 		public void setProbabilities(List<Double> value) {
 			this.probabilities = value;
 		}
 
 		/**
-		 * Gets the value of the words property.
+		 * Gets the words.
 		 * 
-		 * @return possible object is {@link ArrayOfstring }
-		 * 
+		 * @return the words
 		 */
 		public List<String> getWords() {
 			if (words == null) {
@@ -97,11 +135,9 @@ public interface GenerationService extends NgramServiceCommunicationClient {
 		}
 
 		/**
-		 * Sets the value of the words property.
+		 * Sets the words.
 		 * 
-		 * @param value
-		 *            allowed object is {@link ArrayOfstring }
-		 * 
+		 * @param value the new words
 		 */
 		public void setWords(List<String> value) {
 			this.words = value;

@@ -24,7 +24,7 @@ import com.microsoft.research.webngram.service.constant.ParameterNames;
 import com.microsoft.research.webngram.service.constant.NgramServiceApiUrls.NgramServiceApiUrlBuilder;
 
 /**
- * The Class BaseApiQuery.
+ * The Class BaseNgramService.
  */
 public abstract class BaseNgramService extends
 		NgramServiceApiGateway {
@@ -37,7 +37,7 @@ public abstract class BaseNgramService extends
 	protected NgramServiceApiUrlBuilder apiUrlBuilder;
 
 	/**
-	 * Instantiates a new base api query.
+	 * Instantiates a new base ngram service.
 	 * 
 	 * @param applicationId the application id
 	 */
@@ -51,7 +51,7 @@ public abstract class BaseNgramService extends
 	}
 
 	/**
-	 * Instantiates a new base api query.
+	 * Instantiates a new base ngram service.
 	 * 
 	 * @param applicationId the application id
 	 * @param apiVersion the api version
@@ -62,11 +62,11 @@ public abstract class BaseNgramService extends
 	}
 
 	/**
-	 * Creates the academic search api url builder.
+	 * Creates the ngram service api url builder.
 	 * 
 	 * @param urlFormat the url format
 	 * 
-	 * @return the academic search api url builder
+	 * @return the ngram service api url builder
 	 */
 	protected NgramServiceApiUrlBuilder createNgramServiceApiUrlBuilder(
 			String urlFormat) {

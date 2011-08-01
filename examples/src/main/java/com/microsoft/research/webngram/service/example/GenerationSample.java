@@ -14,10 +14,9 @@
  * limitations under the License. 
  * 
  */
-package com.microsoft.research.query.example;
+package com.microsoft.research.webngram.service.example;
 
 import java.text.MessageFormat;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.cli.BasicParser;
@@ -28,13 +27,14 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import com.microsoft.research.webngram.service.LookupService;
+import com.microsoft.research.webngram.service.GenerationService;
 import com.microsoft.research.webngram.service.NgramServiceFactory;
+import com.microsoft.research.webngram.service.GenerationService.TokenSet;
 
 /**
- * The Class AuthorSearchSample.
+ * The Class GenerationSample.
  */
-public class LookupSample {
+public class GenerationSample {
 
     /** The Constant APPLICATION_KEY_OPTION. */
     private static final String APPLICATION_KEY_OPTION = "appid";
@@ -72,15 +72,11 @@ public class LookupSample {
             printHelp(options);            
         } else if(line.hasOption(APPLICATION_KEY_OPTION) && line.hasOption(QUERY_OPTION)) {
     		NgramServiceFactory factory = NgramServiceFactory.newInstance(line.getOptionValue(APPLICATION_KEY_OPTION));
-    		LookupService service = factory.newLookupService();
+    		GenerationService service = factory.newGenerationService();
     		List<String> models = service.getModels();
     		System.out.println(models);
-    		Double probability = service.getProbability(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", "post example");
-    		System.out.println(probability);
-    		probability = service.getConditionalProbability(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", "post example");
-    		System.out.println(probability);
-    		List<Double> probabilities = service.getConditionalProbabilities(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", Arrays.asList("post example", "one two three"));
-    		System.out.println(probabilities);
+    		TokenSet tokenSet = service.generate(line.getOptionValue(APPLICATION_KEY_OPTION), "bing-body/jun09/3", line.getOptionValue(QUERY_OPTION), 5, null);
+    		System.out.println(tokenSet);
         } else {
         	printHelp(options);
         }
@@ -123,7 +119,7 @@ public class LookupSample {
      */
     private static void printHelp(Options options) {
         int width = 80;
-        String syntax = LookupSample.class.getName() + " <options>";
+        String syntax = GenerationSample.class.getName() + " <options>";
         String header = MessageFormat.format("\nThe -{0} and -{1} options are required. All others are optional.", APPLICATION_KEY_OPTION, QUERY_OPTION);
         new HelpFormatter().printHelp(width, syntax, header, options, null, false);
     }

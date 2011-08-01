@@ -17,7 +17,7 @@
 package com.microsoft.research.webngram.service;
 
 /**
- * The Interface AcademicSearchAuthenticationClient.
+ * The Interface NgramServiceAuthenticationClient.
  */
 public interface NgramServiceAuthenticationClient extends
 		NgramServiceCommunicationClient {

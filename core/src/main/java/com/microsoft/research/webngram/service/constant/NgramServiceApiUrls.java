@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The Class AcademicSearchApiUrls.
+ * The Class NgramServiceApiUrls.
  */
 public final class NgramServiceApiUrls {
 
@@ -37,7 +37,7 @@ public final class NgramServiceApiUrls {
 	private static final Logger LOG = Logger
 			.getLogger(NgramServiceApiUrls.class.getCanonicalName());
 
-	/** The Constant googleApiUrls. */
+	/** The Constant academicSearchApiUrls. */
 	private static final Properties academicSearchApiUrls = new Properties();
 
 	static {
@@ -49,24 +49,30 @@ public final class NgramServiceApiUrls {
 		}
 	}
 
-	/** The Constant SEARCH_URL. */
+	/** The Constant GET_PROBABILITIES_URL. */
 	public static final String GET_PROBABILITIES_URL = academicSearchApiUrls
 			.getProperty("com.microsoft.research.webngram.service.getProbabilities");
+	
+	/** The Constant GET_CONDITIONAL_PROBABILITIES_URL. */
 	public static final String GET_CONDITIONAL_PROBABILITIES_URL = academicSearchApiUrls
 			.getProperty("com.microsoft.research.webngram.service.getConditionalProbabilities");
+	
+	/** The Constant GENERATE_URL. */
 	public static final String GENERATE_URL = academicSearchApiUrls
 			.getProperty("com.microsoft.research.webngram.service.generate");
+	
+	/** The Constant LOOKUP_URL. */
 	public static final String LOOKUP_URL = academicSearchApiUrls
 			.getProperty("com.microsoft.research.webngram.service.lookup");
 
 	/**
-	 * Instantiates a new academic search api urls.
+	 * Instantiates a new ngram service api urls.
 	 */
 	private NgramServiceApiUrls() {
 	}
 
     /**
-     * The Class SpringerApiUrlBuilder.
+     * The Class NgramServiceApiUrlBuilder.
      */
     public static class NgramServiceApiUrlBuilder {
         
@@ -86,7 +92,7 @@ public final class NgramServiceApiUrls {
 		private Map<String, String> fieldsMap = new HashMap<String, String>();
 	    
     	/**
-	     * Instantiates a new springer api url builder.
+	     * Instantiates a new ngram service api url builder.
 	     * 
 	     * @param urlFormat the url format
 	     */
@@ -95,7 +101,7 @@ public final class NgramServiceApiUrls {
     	}
     	
     	/**
-	     * Instantiates a new springer api url builder.
+	     * Instantiates a new ngram service api url builder.
 	     * 
 	     * @param urlFormat the url format
 	     * @param format the format
@@ -105,7 +111,7 @@ public final class NgramServiceApiUrls {
     	}
 	    
     	/**
-	     * Instantiates a new springer api url builder.
+	     * Instantiates a new ngram service api url builder.
 	     * 
 	     * @param urlFormat the url format
 	     * @param apiVersion the api version
@@ -122,7 +128,7 @@ public final class NgramServiceApiUrls {
 	     * @param name the name
 	     * @param value the value
 	     * 
-	     * @return the springer api url builder
+	     * @return the ngram service api url builder
 	     */
 	    public NgramServiceApiUrlBuilder withParameter(String name, String value) {
 	    	if (value != null && value.length() > 0) {
@@ -137,7 +143,7 @@ public final class NgramServiceApiUrls {
 		 * 
 		 * @param name the name
 		 * 
-		 * @return the springer api url builder
+		 * @return the ngram service api url builder
 		 */
 		public NgramServiceApiUrlBuilder withEmptyField(String name) {
 			fieldsMap.put(name, "");
@@ -151,7 +157,7 @@ public final class NgramServiceApiUrls {
 		 * @param name the name
 		 * @param value the value
 		 * 
-		 * @return the springer api url builder
+		 * @return the ngram service api url builder
 		 */
 		public NgramServiceApiUrlBuilder withField(String name, String value) {
 			withField(name, value, false);
@@ -166,7 +172,7 @@ public final class NgramServiceApiUrls {
 		 * @param value the value
 		 * @param escape the escape
 		 * 
-		 * @return the springer api url builder
+		 * @return the ngram service api url builder
 		 */
 		public NgramServiceApiUrlBuilder withField(String name, String value,
 				boolean escape) {
